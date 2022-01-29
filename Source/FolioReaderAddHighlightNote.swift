@@ -148,8 +148,10 @@ class FolioReaderAddHighlightNote: UIViewController {
     }
     
     @objc private func keyboardWillShow(notification: NSNotification){
+        print("rentre dans keyboardWillShow")
+
         //give room at the bottom of the scroll view, so it doesn't cover up anything the user needs to tap
-        var userInfo = notification.userInfo!
+        let userInfo = notification.userInfo!
         var keyboardFrame:CGRect = (userInfo[UIResponder.keyboardFrameBeginUserInfoKey] as! NSValue).cgRectValue
         keyboardFrame = self.view.convert(keyboardFrame, from: nil)
         
@@ -159,11 +161,13 @@ class FolioReaderAddHighlightNote: UIViewController {
     }
     
     @objc private func keyboardWillHide(notification:NSNotification){
+        print("rentre dans keyboardWillHide")
         let contentInset:UIEdgeInsets = UIEdgeInsets.zero
         self.scrollView.contentInset = contentInset
     }
     
     @objc private func saveNote(_ sender: UIBarButtonItem) {
+        print("rentre dans saveNote")
         if !textView.text.isEmpty {
             if isEditHighlight {
                 let realm = try! Realm(configuration: readerConfig.realmConfiguration)
@@ -184,8 +188,8 @@ class FolioReaderAddHighlightNote: UIViewController {
 
 // MARK: - UITextViewDelegate
 extension FolioReaderAddHighlightNote: UITextViewDelegate {
-    
     func textViewDidChange(_ textView: UITextView) {
+        print("rentre dans FolioReaderAddHighlightNote")
         let fixedWidth = textView.frame.size.width
         textView.sizeThatFits(CGSize(width: fixedWidth, height: CGFloat.greatestFiniteMagnitude))
         let newSize = textView.sizeThatFits(CGSize(width: fixedWidth, height: CGFloat.greatestFiniteMagnitude))
